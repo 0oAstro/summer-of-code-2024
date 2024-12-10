@@ -61,10 +61,6 @@ class FraudFeatures(BaseModel):
             raise ValueError("Amount must be a positive number")
         return amount
 
-# Bulk prediction endpoint
-class BulkFraudPredictionRequest(BaseModel):
-    transactions: List[FraudFeatures]
-
 @app.post("/predict/")
 def predict_fraud(features: FraudFeatures):
     # Check if model is loaded
@@ -100,7 +96,7 @@ def predict_fraud(features: FraudFeatures):
 def health_check():
     if model_pipeline is None:
         raise HTTPException(status_code=500, detail="Machine learning model not loaded")
-    return {"status": "healthy", "model": "Fraud Detection Model"}
+    return {"status": "healthy", "model": f"Fraud Detection Model {model_path}"}
 
 # Optional: Swagger UI will be available at /docs
 # Optional: ReDoc will be available at /redoc
