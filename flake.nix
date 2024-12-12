@@ -24,6 +24,9 @@
             pip
             venvShellHook
           ]);
+          shellHook = ''
+            export PGDATA=data
+          '';
         };
       });
     };
